@@ -1,0 +1,16 @@
+body {
+   font-family: "Montserrat";
+   font-weight: 400;
+   font-size: 18px;
+   @include lh(22, 18);
+}
+
+/* ----------------CONTAINER------------------------------------------------- */
+
+._container {
+   max-width: 1230px;
+   padding: 0 15px;
+   margin: 0 auto;
+}
+
+/* ----------------MEDIA------------------------------------------------- */
