@@ -3,7 +3,8 @@ body {
    font-weight: 500;
    font-size: 18px;
    @include lh(22, 18);
-	background-color: #fff9ee;
+	background: var(--background-color);
+	transition: background ease 0.4s;
 }
 
 /* ----------------CONTAINER------------------------------------------------- */

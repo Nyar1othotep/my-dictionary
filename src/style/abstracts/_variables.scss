@@ -1,7 +1,21 @@
-$white: #FFFFFF;
+:root[data-theme="light"] {
+   --background-color: #fff9ee;
+   --main-color: #000000;
+   --header-backgound-color: #fff9ee;
+	--header-border-bottom: #e9e6e4;
+	--btn-color: #e2e3e7;
+}
+
+:root[data-theme="dark"] {
+   --background-color: #232529;
+   --main-color: #e2e3e7;
+   --header-backgound-color: #232529;
+	--header-border-bottom: #35383f;
+	--btn-color: #000000;
+}
+
+$disabled: #8e8e8e;
 $black: #000000;
-$green: #2E853C;
-$disabled: #8E8E8E;
 @mixin lh($lh, $fz) {
-    line-height: calc(#{$lh} / #{$fz} * 100%);
+   line-height: calc(#{$lh} / #{$fz} * 100%);
 }

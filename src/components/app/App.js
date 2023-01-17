@@ -3,6 +3,8 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import setContent from "../../utils/setContent";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Toggle from "../toggle/toggle";
+import { ThemeContext, themes } from "../../contexts/themeContext";
 
 const App = () => {
    const [wordsList, setWordsList] = useState([]);
@@ -100,8 +102,9 @@ const App = () => {
    const elements = useMemo(
       (method = "defualt") => {
          return setContent(process, () => renderItems(wordsList, method));
-         // eslint-disable-next-line
-      }, [process]
+      },
+      // eslint-disable-next-line
+      [process]
    );
 
    const shuffleElements = useMemo(() => {
@@ -138,6 +141,17 @@ const App = () => {
                >
                   Show all
                </button>
+               <ThemeContext.Consumer>
+                  {({ theme, setTheme }) => (
+                     <Toggle
+                        onChange={() => {
+                           if (theme === themes.light) setTheme(themes.dark);
+                           if (theme === themes.dark) setTheme(themes.light);
+                        }}
+                        value={theme === themes.dark}
+                     />
+                  )}
+               </ThemeContext.Consumer>
             </div>
          </div>
          {!shuffle ? elements : shuffleElements}

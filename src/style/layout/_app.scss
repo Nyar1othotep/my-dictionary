@@ -1,29 +1,29 @@
 .words {
    &__header {
-		padding: 0 15px;
-      height: 120px;
-      background-color: #fcf0d9;
+      padding: 20px 15px;
+      background-color: var(--header-backgound-color);
       text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-		flex-direction: column;
+      flex-direction: column;
       position: fixed;
       width: 100%;
       left: 0;
       top: 0;
-		z-index: 100;
+      z-index: 100;
       transition: ease 0.4s;
-		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+      border-bottom: 4px solid var(--header-border-bottom);
       &--scrolled {
          height: 40px;
       }
    }
-	&__total {
-		margin: 0px 0px 10px 0px;
-	}
+   &__total {
+      margin: 0px 0px 10px 0px;
+		color: var(--main-color);
+   }
    &__list {
-		padding: 120px 0px 0px 0px;
+      padding: 120px 0px 0px 0px;
       & > *:not(:last-child) {
          margin: 0px 0px 20px 0px;
       }
@@ -33,14 +33,18 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 5px;
+      & span {
+         color: $disabled;
+      }
       & .en,
       & .ru {
-			display: flex;
-			align-items: center;
-			flex-wrap: wrap;
+         display: flex;
+         align-items: center;
+         flex-wrap: wrap;
          position: relative;
          padding: 5px;
-			gap: 5px;
+         gap: 5px;
+         color: var(--main-color);
       }
       & .en.hidden::after,
       & .ru.hidden::after {
@@ -52,22 +56,19 @@
          position: absolute;
          top: 0;
          left: 0;
-         background-color: $black;
+         background-color: var(--main-color);
          width: 100%;
          height: 100%;
-         color: $white;
+         color: var(--btn-color);
          font-size: 16px;
          border-radius: 5px;
       }
    }
-	&__descr {
-		font-size: 12px;
-		color: $disabled;
-	}
+   &__descr,
    &__number {
       font-size: 12px;
       font-weight: 400;
-		color: $disabled;
+      color: $disabled;
    }
    &__controll {
       display: flex;
@@ -76,8 +77,8 @@
    }
    &__btn {
       padding: 5px 30px;
-      background-color: $black;
-      color: $white;
+      background-color: var(--main-color);
+      color: var(--btn-color);
       border-radius: 10px;
    }
 }
