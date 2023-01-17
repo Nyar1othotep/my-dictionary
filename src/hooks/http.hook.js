@@ -1,35 +1,28 @@
 import { useState, useCallback } from "react";
+import axios from "axios";
 
 export const useHttp = () => {
    const [process, setProcess] = useState("waiting");
 
-   const request = useCallback(
-      async (
-         url,
-         method = "GET",
-         body = null,
-         headers = { "Content-Type": "application/json" }
-      ) => {
-         setProcess("loading");
+   const request = useCallback(async (url) => {
+      setProcess("loading");
 
-         try {
-            const response = await fetch(url, { method, body, headers });
+      try {
+         const response = await axios.get(url);
 
-            if (!response.ok)
-               throw new Error(
-                  `Could not fetch ${url}, status: ${response.status}`
-               );
+         if (!response.status === 200)
+            throw new Error(
+               `Could not fetch ${url}, status: ${response.status}`
+            );
 
-            const data = await response.json();
+         const data = await response.data;
 
-            return data;
-         } catch (error) {
-            setProcess("error");
-            throw error;
-         }
-      },
-      []
-   );
+         return data;
+      } catch (error) {
+         setProcess("error");
+         throw error;
+      }
+   }, []);
 
    const clearError = useCallback(() => {
       setProcess("loading");

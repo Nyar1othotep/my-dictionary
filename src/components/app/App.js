@@ -1,9 +1,147 @@
+import useMyDictionarylService from "../../services/MyDictionaryService";
+import { useState, useEffect, useRef, useMemo } from "react";
+import setContent from "../../utils/setContent";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
 const App = () => {
+   const [wordsList, setWordsList] = useState([]);
+   // const [visibleWords, setVisibleWords] = useState();
+   const [shuffle, setShuffle] = useState(false);
+   const shouldLog = useRef(true);
+
+   const { getAllWords, process, setProcess } = useMyDictionarylService();
+
+   useEffect(() => {
+      if (shouldLog.current) {
+         shouldLog.current = false;
+         onRequest();
+      }
+      gsap.registerPlugin(ScrollTrigger);
+
+      const showAnim = gsap
+         .from(".main-tool-bar", {
+            yPercent: -100,
+            paused: true,
+            duration: 0.2,
+         })
+         .progress(1);
+
+      ScrollTrigger.create({
+         start: "top top",
+         end: 99999,
+         onUpdate: (self) => {
+            self.direction === -1 ? showAnim.play() : showAnim.reverse();
+         },
+      });
+      // eslint-disable-next-line
+   }, []);
+
+   const shuffleArray = (array) => {
+      let m = array.length,
+         t,
+         i;
+      while (m) {
+         i = Math.floor(Math.random() * m--);
+         t = array[m];
+         array[m] = array[i];
+         array[i] = t;
+      }
+
+      return array;
+   };
+
+   const onRequest = () => {
+      getAllWords()
+         .then(onWordsListLoaded)
+         .then(() => setProcess("confirmed"));
+   };
+
+   const onWordsListLoaded = (words) => {
+      setWordsList((wordsList) => words);
+   };
+
+   const onHide = (value) => {
+      document.querySelectorAll(".words__item").forEach((item) => {
+         item.querySelector(value).classList.add("hidden");
+      });
+   };
+
+   const showItem = (event) => {
+      event.target.classList.remove("hidden");
+   };
+
+   const showAll = () => {
+      document.querySelectorAll(".words__item").forEach((item) => {
+         item.querySelector(".en").classList.remove("hidden");
+         item.querySelector(".ru").classList.remove("hidden");
+      });
+   };
+
+   function renderItems(arr, method) {
+      const newArr = method === "shuffle" ? shuffleArray(arr) : arr;
+      const items = newArr.map((item, i) => {
+         return (
+            <li className="words__item" key={item.id} id={item.id}>
+               <div className="words__number">{i + 1})</div>
+               <span className="en" onClick={showItem}>
+                  {item.en}
+               </span>
+               <span>−</span>
+               <span className="ru" onClick={showItem}>
+                  {item.ru}
+               </span>
+            </li>
+         );
+      });
+      return <ul className="words__list">{items}</ul>;
+   }
+
+   const elements = useMemo(
+      (method = "defualt") => {
+         return setContent(process, () => renderItems(wordsList, method));
+         // eslint-disable-next-line
+      }, [process]
+   );
+
+   const shuffleElements = useMemo(() => {
+      return setContent(process, () => renderItems(wordsList, "shuffle"));
+      // eslint-disable-next-line
+   }, [process]);
+
    return (
-      <>
-         <div className="">a</div>
-         <div className="">b</div>
-      </>
+      <div className="words _container">
+         <div className="words__header main-tool-bar">
+            <div className="words__total">Всего слов: {wordsList.length}</div>
+            <div className="words__controll">
+               <button
+                  className="words__en-ru-btn words__btn btn"
+                  onClick={() => onHide(".en")}
+               >
+                  En-ru
+               </button>
+               <button
+                  className="words__ru-en-btn words__btn btn"
+                  onClick={() => onHide(".ru")}
+               >
+                  Ru-en
+               </button>
+               <button
+                  className="words__shuffle-btn words__btn btn"
+                  onClick={() => setShuffle(true)}
+               >
+                  Shuffle
+               </button>
+               <button
+                  className="words__show-all-btn words__btn btn"
+                  onClick={showAll}
+               >
+                  Show all
+               </button>
+            </div>
+         </div>
+         {!shuffle ? elements : shuffleElements}
+      </div>
    );
 };
 export default App;

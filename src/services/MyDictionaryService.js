@@ -3,18 +3,37 @@ import { useHttp } from "../hooks/http.hook";
 const useMyDictionarylService = () => {
    const { request, clearError, process, setProcess } = useHttp();
 
-   const _apiKey = "...";
+   const _apiKey =
+      "https://gist.githubusercontent.com/Nyar1othotep/b990d08471011a5e447ea8b75a74c449/raw/2fbb19ee023ca65e3a05478491fe3771ce745218/my-dictionary.json";
 
    const getAllWords = async () => {
       const res = await request(_apiKey);
-      return res.data.results.map(_transfromWords);
+      return res.map(_transfromWords);
    };
 
    const _transfromWords = (words) => {
       return {
          id: words.id,
          en: words.en,
-         ru: words.ru,
+         ru: (function () {
+            let index = words.ru.indexOf("(");
+            return index > -1 ? (
+               <>
+                  <div className="words__text">{words.ru.slice(0, index)}</div>
+                  <div className="words__descr">
+                     {words.ru.slice(index - 1 + 1)}
+                  </div>
+               </>
+            ) : (
+               // <>
+               //    <div className="words__text">{words.ru.slice(0, index)}</div>
+               //    <div className="words__descr">
+               //       {words.ru.slice(index - 1 + 1)}
+               //    </div>
+               // </>
+               words.ru
+            );
+         })(),
       };
    };
 
