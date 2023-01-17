@@ -115,7 +115,7 @@ const App = () => {
    return (
       <div className="words _container">
          <div className="words__header main-tool-bar">
-            <div className="words__total">Всего слов: {wordsList.length}</div>
+            <div className="words__total">Total words: {wordsList.length}</div>
             <div className="words__controll">
                <button
                   className="words__en-ru-btn words__btn btn"

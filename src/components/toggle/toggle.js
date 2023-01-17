@@ -14,7 +14,7 @@ const Toggle = ({ value, onChange }) => (
          htmlFor="toggler"
          data-onlabel="dark"
          data-offlabel="light"
-         class="lb1"
+         className="lb1"
       />
    </>
 );
