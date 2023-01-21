@@ -4,7 +4,7 @@ const useMyDictionarylService = () => {
    const { request, clearError, process, setProcess } = useHttp();
 
    const _apiKey =
-      "https://gist.githubusercontent.com/Nyar1othotep/b990d08471011a5e447ea8b75a74c449/raw/2fbb19ee023ca65e3a05478491fe3771ce745218/my-dictionary.json";
+      "https://gist.githubusercontent.com/Nyar1othotep/b990d08471011a5e447ea8b75a74c449/raw/ab55540b7ebc8036143d7f0d32483a88e1586184/my-dictionary.json";
 
    const getAllWords = async () => {
       const res = await request(_apiKey);
