@@ -29,11 +29,27 @@ const App = () => {
          })
          .progress(1);
 
+      const showBtnsUpDown = gsap
+         .from(".words__btns-up-down", {
+            xPercent: 200,
+            paused: true,
+            duration: 0.2,
+         })
+         .progress(1);
+
       ScrollTrigger.create({
          start: "top top",
          end: 99999,
          onUpdate: (self) => {
             self.direction === -1 ? showAnim.play() : showAnim.reverse();
+         },
+      });
+
+		ScrollTrigger.create({
+         start: "top top",
+         end: 99999,
+         onUpdate: (self) => {
+            self.direction === -1 ? showBtnsUpDown.play() : showBtnsUpDown.reverse();
          },
       });
       // eslint-disable-next-line

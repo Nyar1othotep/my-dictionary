@@ -1,3 +1,10 @@
+.up.hidden,
+.down.hidden {
+   visibility: hidden;
+   opacity: 0;
+   transform: scale(0);
+}
+
 .words {
    &__header {
       padding: 20px 15px;
@@ -81,11 +88,18 @@
       color: var(--btn-color);
       border-radius: 10px;
    }
+	&__btns-up-down {
+		position: fixed;
+		top: 20%;
+		right: 10px;
+		z-index: 100;
+		&>*:not(:last-child) {
+			margin: 0px 0px 15px 0px;
+		}
+	}
    &__btn-up,
    &__btn-down {
-		padding: 5px 15px;
-      position: fixed;
-      right: 10px;
+      padding: 5px 15px;
    }
    &__btn-up {
       top: 27%;
@@ -97,7 +111,7 @@
    &__btn-down {
       top: 33%;
       transform: translateY(-33%);
-		p {
+      p {
          transform: rotate(90deg);
       }
    }
