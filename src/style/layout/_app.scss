@@ -20,10 +20,10 @@
    }
    &__total {
       margin: 0px 0px 10px 0px;
-		color: var(--main-color);
+      color: var(--main-color);
    }
    &__list {
-      padding: 120px 0px 0px 0px;
+      padding: 60px 0px;
       & > *:not(:last-child) {
          margin: 0px 0px 20px 0px;
       }
@@ -80,5 +80,25 @@
       background-color: var(--main-color);
       color: var(--btn-color);
       border-radius: 10px;
+   }
+   &__btn-up,
+   &__btn-down {
+		padding: 5px 15px;
+      position: fixed;
+      right: 10px;
+   }
+   &__btn-up {
+      top: 27%;
+      transform: translateY(-27%);
+      p {
+         transform: rotate(-90deg);
+      }
+   }
+   &__btn-down {
+      top: 33%;
+      transform: translateY(-33%);
+		p {
+         transform: rotate(90deg);
+      }
    }
 }

@@ -3,8 +3,15 @@ body {
    font-weight: 500;
    font-size: 18px;
    @include lh(22, 18);
-	background: var(--background-color);
-	transition: background ease 0.4s;
+   background: var(--background-color);
+   transition: background ease 0.4s;
+   scroll-behavior: smooth;
+}
+
+.hidden {
+   visibility: hidden;
+	opacity: 0;
+	transform: scale(0);
 }
 
 /* ----------------CONTAINER------------------------------------------------- */

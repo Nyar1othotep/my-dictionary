@@ -114,6 +114,7 @@ const App = () => {
 
    return (
       <div className="words _container">
+         <div className="up hidden" id="up"></div>
          <div className="words__header main-tool-bar">
             <div className="words__total">Total words: {wordsList.length}</div>
             <div className="words__controll">
@@ -154,7 +155,16 @@ const App = () => {
                </ThemeContext.Consumer>
             </div>
          </div>
+         <div className="words__btns-up-down">
+            <a className="words__btn-up words__btn btn" href="#up">
+               <p>❯</p>
+            </a>
+            <a className="words__btn-down words__btn btn" href="#down">
+               <p>❯</p>
+            </a>
+         </div>
          {!shuffle ? elements : shuffleElements}
+         <div className="down hidden" id="down"></div>
       </div>
    );
 };
