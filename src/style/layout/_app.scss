@@ -30,7 +30,7 @@
       color: var(--main-color);
    }
    &__list {
-      padding: 60px 0px;
+      padding: 60px 0px 30px 0px;
       & > *:not(:last-child) {
          margin: 0px 0px 20px 0px;
       }
@@ -88,15 +88,16 @@
       color: var(--btn-color);
       border-radius: 10px;
    }
-	&__btns-up-down {
-		position: fixed;
-		top: 20%;
-		right: 10px;
-		z-index: 100;
-		&>*:not(:last-child) {
-			margin: 0px 0px 15px 0px;
-		}
-	}
+   &__btns-up-down {
+      position: fixed;
+      top: 40%;
+      right: 10px;
+      z-index: 100;
+      transition: ease 0.4s;
+      & > *:not(:last-child) {
+         margin: 0px 0px 15px 0px;
+      }
+   }
    &__btn-up,
    &__btn-down {
       padding: 5px 15px;
@@ -113,6 +114,21 @@
       transform: translateY(-33%);
       p {
          transform: rotate(90deg);
+      }
+   }
+   &__footer {
+      padding: 0px 0px 15px 0px;
+   }
+   &__footer,
+   &__footer a {
+      font-size: 12px;
+      text-align: center;
+      color: $disabled;
+   }
+   &__footer a {
+      text-decoration: underline;
+      &:hover {
+         color: var(--main-color);
       }
    }
 }

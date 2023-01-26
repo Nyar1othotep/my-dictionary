@@ -180,6 +180,7 @@ const App = () => {
             </a>
          </div>
          {!shuffle ? elements : shuffleElements}
+			<div className="words__footer">Created by <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023</div>
          <div className="down hidden" id="down"></div>
       </div>
    );
