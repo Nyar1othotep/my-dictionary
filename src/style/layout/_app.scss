@@ -132,3 +132,14 @@
       }
    }
 }
+
+.tts {
+	padding: 0 5px;
+	cursor: pointer;
+	svg {
+		margin: 0px 0px -5px 0px;
+		width: 20px;
+		height: 20px;
+		fill: var(--main-color);
+	}
+}

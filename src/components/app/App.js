@@ -5,6 +5,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Toggle from "../toggle/toggle";
 import { ThemeContext, themes } from "../../contexts/themeContext";
+import svg from "../../resourses/svg/sprites.svg";
 
 const App = () => {
    const [wordsList, setWordsList] = useState([]);
@@ -45,11 +46,13 @@ const App = () => {
          },
       });
 
-		ScrollTrigger.create({
+      ScrollTrigger.create({
          start: "top top",
          end: 99999,
          onUpdate: (self) => {
-            self.direction === -1 ? showBtnsUpDown.play() : showBtnsUpDown.reverse();
+            self.direction === -1
+               ? showBtnsUpDown.play()
+               : showBtnsUpDown.reverse();
          },
       });
       // eslint-disable-next-line
@@ -96,14 +99,25 @@ const App = () => {
       });
    };
 
+   const speechSynthesis = (value) => {
+      const utterance = new SpeechSynthesisUtterance(value);
+      utterance.rate = 0.8;
+      window.speechSynthesis.speak(utterance);
+   };
+
    function renderItems(arr, method) {
       const newArr = method === "shuffle" ? shuffleArray(arr) : arr;
       const items = newArr.map((item, i) => {
          return (
-            <li className="words__item" key={item.id} id={item.id}>
+            <li className="words__item" key={item.id}>
                <div className="words__number">{i + 1})</div>
                <span className="en" onClick={showItem}>
                   {item.en}
+                  <div className="tts" onClick={() => speechSynthesis(item.en)}>
+                     <svg>
+                        <use href={`${svg}#play`}></use>
+                     </svg>
+                  </div>
                </span>
                <span>−</span>
                <span className="ru" onClick={showItem}>
@@ -127,7 +141,7 @@ const App = () => {
       return setContent(process, () => renderItems(wordsList, "shuffle"));
       // eslint-disable-next-line
    }, [process]);
-
+	
    return (
       <div className="words _container">
          <div className="up hidden" id="up"></div>
@@ -180,7 +194,10 @@ const App = () => {
             </a>
          </div>
          {!shuffle ? elements : shuffleElements}
-			<div className="words__footer">Created by <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023</div>
+         <div className="words__footer">
+            Created by{" "}
+            <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023
+         </div>
          <div className="down hidden" id="down"></div>
       </div>
    );
