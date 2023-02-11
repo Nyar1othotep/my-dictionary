@@ -1,0 +1,13 @@
+.footer,
+.footer a {
+   padding: 0px 0px 15px 0px;
+   font-size: 12px;
+   text-align: center;
+   color: $disabled;
+   & a {
+      text-decoration: underline;
+      &:hover {
+         color: var(--main-color);
+      }
+   }
+}

@@ -1,0 +1,46 @@
+.header {
+   padding: 20px 15px;
+   background-color: var(--header-backgound-color);
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   position: sticky;
+   width: 100%;
+   left: 0;
+   top: 0;
+   z-index: 100;
+   transition: ease 0.4s;
+   border-bottom: 4px solid var(--header-border-bottom);
+   &--scrolled {
+      height: 40px;
+   }
+   &__container {
+      width: inherit;
+   }
+   &__body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   &__logo {
+      & svg {
+         width: 35px;
+         height: 35px;
+         fill: var(--main-color);
+      }
+   }
+   &__account {
+      & svg {
+         width: 24px;
+         height: 24px;
+         fill: $disabled;
+      }
+      &.active {
+         & svg {
+            fill: var(--main-color);
+         }
+      }
+   }
+}

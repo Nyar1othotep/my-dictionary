@@ -1,0 +1,29 @@
+.logout {
+   padding: 0 0 30px 0;
+   color: $disabled;
+   border-bottom: 4px solid var(--header-border-bottom);
+   & div {
+      font-size: 18px;
+      font-weight: 500;
+   }
+   & span {
+      font-size: 16px;
+      font-weight: 400;
+   }
+   &__user {
+      & > *:not(:last-child) {
+         margin: 0px 0px 10px 0px;
+      }
+   }
+   & > *:not(:last-child) {
+      margin: 0px 0px 30px 0px;
+   }
+}
+
+@media (min-width: 768px) {
+   .logout {
+      &__btn {
+         max-width: 400px;
+      }
+   }
+}

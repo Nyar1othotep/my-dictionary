@@ -1,10 +1,21 @@
 .btn {
-    //  border-radius
-    //  padding
-    //  font-size
-    //  @include lh(line-height, font-size)
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+   //  border-radius
+   //  padding
+   //  font-size
+   //  @include lh(line-height, font-size)
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
+}
+
+.form-btn {
+   padding: 14px 0;
+   min-height: 50px;
+   width: 100%;
+   font-size: 18px;
+   @include lh(22, 18);
+   color: var(--main-color);
+   background: var(--header-border-bottom);
+   border-radius: 25px;
 }

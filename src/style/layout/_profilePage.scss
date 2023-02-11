@@ -1,0 +1,24 @@
+.profile-page {
+   padding: 60px 0px 60px 0px;
+   &__title {
+      color: $disabled;
+   }
+	&__row {
+		margin: 60px 0px 25px 0px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	&__delete {
+		display: flex;
+		align-items: center;
+		color: var(--main-color);
+		cursor: pointer;
+		& svg {
+			margin: 0px 0px 5px 0px;
+			width: 30px;
+			height: 30px;
+			fill: var(--main-color);
+		}
+	}
+}

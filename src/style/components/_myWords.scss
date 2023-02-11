@@ -1,0 +1,17 @@
+.my-words {
+   padding: 60px 0px 0px 0px;
+   &__title {
+      margin: 0px 0px 25px 0px;
+      color: $disabled;
+   }
+   &__empy {
+      font-weight: 400;
+      font-size: 16px;
+      @include lh(20, 16);
+      color: $disabled;
+      & a {
+         text-decoration: underline;
+         color: var(--main-color);
+      }
+   }
+}

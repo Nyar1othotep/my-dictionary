@@ -1,4 +1,4 @@
-import { useHttp } from "../hooks/http.hook";
+import { useHttp } from "../hooks/shttp.hook";
 
 const useMyDictionarylService = () => {
    const { request, clearError, process, setProcess } = useHttp();
@@ -15,25 +15,7 @@ const useMyDictionarylService = () => {
       return {
          id: words.id,
          en: words.en,
-         ru: (function () {
-            let index = words.ru.indexOf("(");
-            return index > -1 ? (
-               <>
-                  <div className="words__text">{words.ru.slice(0, index)}</div>
-                  <div className="words__descr">
-                     {words.ru.slice(index - 1 + 1)}
-                  </div>
-               </>
-            ) : (
-               // <>
-               //    <div className="words__text">{words.ru.slice(0, index)}</div>
-               //    <div className="words__descr">
-               //       {words.ru.slice(index - 1 + 1)}
-               //    </div>
-               // </>
-               words.ru
-            );
-         })(),
+         ru: words.ru
       };
    };
 

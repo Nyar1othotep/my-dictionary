@@ -1,0 +1,45 @@
+.input {
+   position: relative;
+   & .error {
+      position: absolute;
+      bottom: -20px;
+      font-weight: 500;
+      font-size: 12px;
+      @include lh(15, 12);
+      color: var(--main-color);
+   }
+}
+
+.form-input {
+   margin: -4px 0px 0px 0px;
+   padding: 20px 15px 10px 15px;
+   position: relative;
+   min-height: 55px;
+   width: 100%;
+   border-bottom: 4px solid var(--header-border-bottom);
+   background: transparent;
+   border-radius: 5px;
+   font-size: 16px;
+   @include lh(20, 16);
+   color: var(--main-color);
+   &::placeholder {
+      position: absolute;
+      top: 7px;
+      left: 15px;
+      font-weight: 500;
+      font-size: 12px;
+      @include lh(15, 12);
+      color: $disabled;
+   }
+   &:focus {
+      outline: 4px solid var(--header-border-bottom);
+      border: none;
+   }
+}
+
+form label {
+   margin: 0px 0px 20px 0px;
+   font-weight: 600;
+   font-size: 18px;
+   @include lh(22, 18);
+}

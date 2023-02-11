@@ -1,18 +1,24 @@
 import { useState, useCallback } from "react";
-import { getDocs } from "firebase/firestore";
+import axios from "axios";
 
 export const useHttp = () => {
    const [process, setProcess] = useState("waiting");
 
-   const request = useCallback(async (query) => {
+   const request = useCallback(async (url) => {
       setProcess("loading");
 
       try {
-         const data = await getDocs(query);
+         const response = await axios.get(url);
+
+         if (!response.status === 200)
+            throw new Error(
+               `Could not fetch ${url}, status: ${response.status}`
+            );
+
+         const data = await response.data;
 
          return data;
       } catch (error) {
-
          setProcess("error");
          throw error;
       }

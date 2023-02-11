@@ -1,0 +1,17 @@
+.popup {
+   &-overlay {
+      background: #00000080;
+   }
+   &-content {
+      margin: auto;
+      max-width: 600px;
+      width: 100%;
+      padding: 0 15px;
+      & .add-words-form {
+         padding: 30px 15px;
+         background: var(--background-color);
+         border-radius: 20px;
+         border: 4px solid var(--header-border-bottom);
+      }
+   }
+}

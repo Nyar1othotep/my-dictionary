@@ -1,0 +1,219 @@
+.up.hidden,
+.down.hidden {
+   visibility: hidden;
+   opacity: 0;
+   transform: scale(0);
+}
+
+.words {
+   &__header {
+      padding: 20px 15px;
+      background-color: var(--header-backgound-color);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: sticky;
+      width: 100%;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      transition: ease 0.4s;
+      border-bottom: 4px solid var(--header-border-bottom);
+      &--scrolled {
+         height: 40px;
+      }
+   }
+   &__add {
+      padding: 30px 0;
+      border-bottom: 4px solid var(--header-border-bottom);
+      &-title {
+         display: block;
+         margin: 0px 0px 20px 0px;
+         color: $disabled;
+      }
+   }
+   &__row {
+      margin: 0px 0px 10px 0px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+   }
+   &__total,
+   &__title {
+      color: var(--main-color);
+   }
+
+   &__list {
+      padding: 30px 0px 30px 0px;
+      & > *:not(:last-child) {
+         margin: 0px 0px 20px 0px;
+      }
+   }
+   &__item {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      & span {
+         color: $disabled;
+      }
+      & .en,
+      & .ru {
+         display: flex;
+         align-items: center;
+         flex-wrap: wrap;
+         position: relative;
+         padding: 5px;
+         gap: 5px;
+         color: var(--main-color);
+      }
+      & .en.hidden::after,
+      & .ru.hidden::after {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         content: "show";
+         position: absolute;
+         top: 0;
+         left: 0;
+         background-color: var(--main-color);
+         width: 100%;
+         height: 100%;
+         color: var(--btn-color);
+         font-size: 16px;
+         border-radius: 5px;
+      }
+   }
+   &__descr,
+   &__number {
+      font-size: 12px;
+      font-weight: 400;
+      color: $disabled;
+   }
+   &__controll {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+   }
+   &__btn {
+      padding: 5px 20px;
+      background-color: var(--main-color);
+      font-size: 16px;
+      color: var(--btn-color);
+      border-radius: 10px;
+   }
+   &__btns-up-down {
+      position: fixed;
+      top: 40%;
+      right: 10px;
+      z-index: 100;
+      transition: ease 0.4s;
+      & > *:not(:last-child) {
+         margin: 0px 0px 15px 0px;
+      }
+   }
+   &__btn-up,
+   &__btn-down {
+      padding: 5px 15px;
+   }
+   &__btn-up {
+      top: 27%;
+      transform: translateY(-27%);
+      p {
+         transform: rotate(-90deg);
+      }
+   }
+   &__btn-down {
+      top: 33%;
+      transform: translateY(-33%);
+      p {
+         transform: rotate(90deg);
+      }
+   }
+   &__footer {
+      padding: 0px 0px 15px 0px;
+   }
+   &__footer,
+   &__footer a {
+      font-size: 12px;
+      text-align: center;
+      color: $disabled;
+   }
+   &__footer a {
+      text-decoration: underline;
+      &:hover {
+         color: var(--main-color);
+      }
+   }
+   &__delete {
+      padding: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--main-color);
+      border-bottom: 4px solid var(--header-border-bottom);
+      & div {
+         display: flex;
+         align-items: center;
+         cursor: pointer;
+      }
+      & svg {
+         margin: 0px 5px 0px 0px;
+         width: 30px;
+         height: 30px;
+         fill: var(--main-color);
+      }
+   }
+   &__remove {
+      display: none;
+      margin: 0px 10px 0px 0px;
+      cursor: pointer;
+      & svg {
+         margin: 0px 0px -5px 0px;
+         width: 24px;
+         height: 24px;
+         fill: $disabled;
+         transition: ease 0.4s;
+      }
+      &:hover svg {
+         fill: var(--main-color);
+      }
+      &.active {
+         display: block;
+      }
+   }
+   &__empy {
+      padding: 30px 0px 0px 0px;
+      color: $disabled;
+      text-align: center;
+   }
+   &__return-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      & svg {
+         width: 16px;
+         height: 16px;
+         fill: var(--btn-color);
+      }
+   }
+}
+
+.tts {
+   padding: 0 5px;
+   cursor: pointer;
+   svg {
+      margin: 0px 0px -5px 0px;
+      width: 20px;
+      height: 20px;
+      fill: var(--main-color);
+   }
+}
+
+.add-words-form {
+   margin: 0 auto;
+}
