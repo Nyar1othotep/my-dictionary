@@ -9,6 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import AddWordsForm from "components/addWordsForm/addWordsForm";
 import { db } from "../../firebase";
 import { updateDoc, doc } from "firebase/firestore";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const WordsPage = () => {
    const [words, setWords] = useState([]);
@@ -247,12 +248,12 @@ const WordsPage = () => {
             </div>
          </div>
          <div className="words__btns-up-down">
-            <a className="words__btn-up words__btn btn" href="#up">
+            <AnchorLink className="words__btn-up words__btn btn" href="#up">
                <p>❯</p>
-            </a>
-            <a className="words__btn-down words__btn btn" href="#down">
+            </AnchorLink>
+            <AnchorLink className="words__btn-down words__btn btn" href="#down">
                <p>❯</p>
-            </a>
+            </AnchorLink>
          </div>
          <div className="words__add">
             <span className="words__add-title">Add word</span>

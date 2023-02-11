@@ -10,6 +10,7 @@ import AddWordsForm from "components/addWordsForm/addWordsForm";
 import { db } from "../../firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { useAuth } from "hooks/useAuth.hook";
+import AnchorLink from "react-anchor-link-smooth-scroll";
 
 const CommonWordsPage = () => {
    const { isAdmin } = useAuth();
@@ -250,12 +251,12 @@ const CommonWordsPage = () => {
             </div>
          </div>
          <div className="words__btns-up-down">
-            <a className="words__btn-up words__btn btn" href="#up">
+            <AnchorLink className="words__btn-up words__btn btn" href="#up">
                <p>❯</p>
-            </a>
-            <a className="words__btn-down words__btn btn" href="#down">
+            </AnchorLink>
+            <AnchorLink className="words__btn-down words__btn btn" href="#down">
                <p>❯</p>
-            </a>
+            </AnchorLink>
          </div>
          {isAdmin ? (
             <>
