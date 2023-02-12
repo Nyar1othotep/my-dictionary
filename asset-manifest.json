@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/my-dictionary/static/css/main.d8e47557.css",
-    "main.js": "/my-dictionary/static/js/main.273ed7e5.js",
-    "static/media/sprites.svg": "/my-dictionary/static/media/sprites.7391b47dbaee88ba225109869fa8b5f0.svg",
+    "main.css": "/my-dictionary/static/css/main.d51d464d.css",
+    "main.js": "/my-dictionary/static/js/main.76839ca9.js",
+    "static/media/error.png": "/my-dictionary/static/media/error.0f9943c0a21c277c58b8.png",
+    "static/media/sprites.svg": "/my-dictionary/static/media/sprites.f5199eccb59fa1ff07f81a2f530bf96b.svg",
     "static/media/Infinity-1s-200px.svg": "/my-dictionary/static/media/Infinity-1s-200px.0108a1f4870deff0ab76e5054e71197b.svg",
     "index.html": "/my-dictionary/index.html",
-    "main.d8e47557.css.map": "/my-dictionary/static/css/main.d8e47557.css.map",
-    "main.273ed7e5.js.map": "/my-dictionary/static/js/main.273ed7e5.js.map"
+    "main.d51d464d.css.map": "/my-dictionary/static/css/main.d51d464d.css.map",
+    "main.76839ca9.js.map": "/my-dictionary/static/js/main.76839ca9.js.map"
   },
   "entrypoints": [
-    "static/css/main.d8e47557.css",
-    "static/js/main.273ed7e5.js"
+    "static/css/main.d51d464d.css",
+    "static/js/main.76839ca9.js"
   ]
 }
