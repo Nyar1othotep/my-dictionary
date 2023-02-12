@@ -32,14 +32,37 @@
       }
    }
    &__account {
+      padding: 5px;
       & svg {
-         width: 24px;
-         height: 24px;
+         margin: 0px 0px -5px 0px;
+         width: 30px;
+         height: 30px;
          fill: $disabled;
       }
       &.active {
          & svg {
             fill: var(--main-color);
+         }
+      }
+   }
+}
+
+@media (max-width: 425px) {
+   .header {
+      padding: 14px 15px;
+      &__theme {
+         transform: scale(0.8);
+      }
+      &__logo {
+         & svg {
+            width: 30px;
+            height: 30px;
+         }
+      }
+      &__account {
+         & svg {
+            width: 25px;
+            height: 25px;
          }
       }
    }

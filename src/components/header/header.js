@@ -1,34 +1,11 @@
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
 import Toggle from "../toggle/toggle";
 import { ThemeContext, themes } from "../../contexts/themeContext";
-import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import svg from "../../resourses/svg/sprites.svg";
 import { useAuth } from "hooks/useAuth.hook";
 
 const Header = () => {
    const { isAuth } = useAuth();
-
-   useEffect(() => {
-      gsap.registerPlugin(ScrollTrigger);
-
-      const showAnim = gsap
-         .from(".header", {
-            yPercent: -100,
-            paused: true,
-            duration: 0.2,
-         })
-         .progress(1);
-
-      ScrollTrigger.create({
-         start: "top top",
-         end: 99999,
-         onUpdate: (self) => {
-            self.direction === -1 ? showAnim.play() : showAnim.reverse();
-         },
-      });
-   }, []);
 
    return (
       <div className="header">

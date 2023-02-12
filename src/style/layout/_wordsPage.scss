@@ -7,12 +7,10 @@
 
 .words {
    &__header {
-      padding: 20px 15px;
+      padding: 15px 0;
       background-color: var(--header-backgound-color);
       text-align: center;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
       position: sticky;
       width: 100%;
@@ -21,8 +19,71 @@
       z-index: 100;
       transition: ease 0.4s;
       border-bottom: 4px solid var(--header-border-bottom);
-      &--scrolled {
-         height: 40px;
+   }
+   &__container {
+      width: inherit;
+   }
+   &__body {
+      height: 44px;
+      overflow: hidden;
+      transition: ease 0.4s;
+      &.active {
+         height: 106px;
+      }
+   }
+   &__row {
+      display: flex;
+      align-items: center;
+   }
+   &__return {
+      padding: 5px;
+      margin: 0px 25px 0px -5px;
+      cursor: pointer;
+      & svg {
+         margin: 0px 0px -5px 0px;
+         width: 30px;
+         height: 30px;
+         fill: var(--main-color);
+         transition: ease 0.4s;
+      }
+      &:hover {
+         svg {
+            fill: $disabled;
+         }
+      }
+   }
+   &__info {
+      text-align: left;
+   }
+   &__total,
+   &__title {
+      color: var(--main-color);
+   }
+   &__title {
+      font-size: 16px;
+   }
+   &__total {
+      font-size: 12px;
+   }
+   &__settigns {
+      padding: 5px;
+      margin: 0px -5px 0px auto;
+      transition: ease 0.4s;
+      cursor: pointer;
+      & svg {
+         margin: 0px 0px -5px 0px;
+         width: 30px;
+         height: 30px;
+         fill: var(--main-color);
+         transition: ease 0.4s;
+      }
+      &.active {
+         transform: rotate(180deg);
+      }
+      &:hover {
+         svg {
+            fill: $disabled;
+         }
       }
    }
    &__add {
@@ -34,17 +95,6 @@
          color: $disabled;
       }
    }
-   &__row {
-      margin: 0px 0px 10px 0px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-   }
-   &__total,
-   &__title {
-      color: var(--main-color);
-   }
-
    &__list {
       padding: 30px 0px 30px 0px;
       & > *:not(:last-child) {
@@ -94,6 +144,7 @@
       color: $disabled;
    }
    &__controll {
+      padding: 25px 0px 10px 0px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -104,6 +155,10 @@
       font-size: 16px;
       color: var(--btn-color);
       border-radius: 10px;
+      transition: ease 0.4s;
+      &:hover {
+         background: $disabled;
+      }
    }
    &__btns-up-down {
       position: fixed;
@@ -133,6 +188,9 @@
          transform: rotate(90deg);
       }
    }
+   &__theme {
+      transform: scale(0.8);
+   }
    &__footer {
       padding: 0px 0px 15px 0px;
    }
@@ -159,12 +217,20 @@
          display: flex;
          align-items: center;
          cursor: pointer;
+         transition: ease 0.4s;
+         &:hover {
+            color: $disabled;
+            svg {
+               fill: $disabled;
+            }
+         }
       }
       & svg {
          margin: 0px 5px 0px 0px;
          width: 30px;
          height: 30px;
          fill: var(--main-color);
+         transition: ease 0.4s;
       }
    }
    &__remove {
@@ -216,4 +282,14 @@
 
 .add-words-form {
    margin: 0 auto;
+}
+
+@media (max-width: 500px) {
+   .words {
+      &__body {
+         &.active {
+            height: 146px;
+         }
+      }
+   }
 }

@@ -18,4 +18,8 @@
    color: var(--main-color);
    background: var(--header-border-bottom);
    border-radius: 25px;
+   transition: ease 0.4s;
+   &:hover {
+      background: $disabled;
+   }
 }

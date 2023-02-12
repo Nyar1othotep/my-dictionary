@@ -17,6 +17,7 @@
    min-height: 80px;
    border: 4px solid var(--header-border-bottom);
    border-radius: 20px;
+	transition: ease 0.4s;
    cursor: pointer;
    &__title {
       font-weight: 400;
@@ -30,8 +31,11 @@
       fill: var(--header-border-bottom);
       transition: ease 0.4s;
    }
-   &:hover svg {
-      fill: var(--main-color);
+   &:hover {
+		border: 4px solid $disabled;
+      svg {
+         fill: var(--main-color);
+      }
    }
    &--add {
       justify-content: center;

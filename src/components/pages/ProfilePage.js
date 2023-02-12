@@ -144,7 +144,7 @@ const ProfilePage = () => {
    );
 
    return isAuth ? (
-      <>
+      <div className="profile">
          <Header />
          <div className="profile-page">
             <div className="profile-page__container _container">
@@ -178,7 +178,11 @@ const ProfilePage = () => {
                </div>
             </div>
          </div>
-      </>
+         <div className="words__footer">
+            Created by{" "}
+            <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023
+         </div>
+      </div>
    ) : (
       <Navigate to="/user/login" />
    );
