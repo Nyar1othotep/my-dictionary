@@ -7,12 +7,16 @@ import { db } from "../../firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import WordsHeader from "components/wordsHeader/wordsHeader";
 import Spinner from "components/spinner/spinner";
+import LazyLoad from "react-lazyload";
 
 const Words = ({ isAdmin, wordsFrom }) => {
    const [words, setWords] = useState([]);
    const [title, setTitle] = useState("");
    const [wordsID, setWordsID] = useState(null);
    const [shuffle, setShuffle] = useState(false);
+   const [onHideEn, setOnHideEn] = useState(false);
+   const [onHideRu, setOnHideRu] = useState(false);
+   const [onShowDelete, setOnShowDelete] = useState(false);
 
    useEffect(() => {
       setWords((words) => store.getState().words.wordsArray);
@@ -40,33 +44,20 @@ const Words = ({ isAdmin, wordsFrom }) => {
       return array;
    };
 
-   const onHide = (value) => {
-      document.querySelectorAll(".words__item").forEach((item) => {
-         item.querySelector(value).classList.add("hidden");
-      });
+   const onEnHideFunc = () => {
+      setOnHideEn((onHideEn) => !onHideEn);
    };
 
-   const onShowRemove = () => {
-      document.querySelectorAll(".words__item").forEach((item) => {
-         item.querySelector(".words__remove").classList.add("active");
-      });
+   const onRuHideFunc = () => {
+      setOnHideRu((onHideRu) => !onHideRu);
    };
 
-   const onHideAllRemove = () => {
-      document.querySelectorAll(".words__item").forEach((item) => {
-         item.querySelector(".words__remove").classList.remove("active");
-      });
+   const onShowDeleteFunc = () => {
+      setOnShowDelete((onShowDelete) => !onShowDelete);
    };
 
    const showItem = (event) => {
       event.target.classList.remove("hidden");
-   };
-
-   const showAll = () => {
-      document.querySelectorAll(".words__item").forEach((item) => {
-         item.querySelector(".en").classList.remove("hidden");
-         item.querySelector(".ru").classList.remove("hidden");
-      });
    };
 
    const speechSynthesis = (value) => {
@@ -124,9 +115,11 @@ const Words = ({ isAdmin, wordsFrom }) => {
          })();
 
          return (
-            <li className="words__item" key={i}>
+            <LazyLoad offset={100} className="words__item" key={i}>
                <div
-                  className="words__remove"
+                  className={
+                     !onShowDelete ? "words__remove" : "words__remove active"
+                  }
                   onClick={() => deleteWord(item.id)}
                >
                   <svg>
@@ -134,7 +127,10 @@ const Words = ({ isAdmin, wordsFrom }) => {
                   </svg>
                </div>
                <div className="words__number">{i + 1})</div>
-               <span className="en" onClick={showItem}>
+               <span
+                  className={!onHideEn ? "en" : "hidden en"}
+                  onClick={showItem}
+               >
                   {item.en}
                   <div className="tts" onClick={() => speechSynthesis(item.en)}>
                      <svg>
@@ -143,10 +139,13 @@ const Words = ({ isAdmin, wordsFrom }) => {
                   </div>
                </span>
                <span>−</span>
-               <span className="ru" onClick={showItem}>
+               <span
+                  className={!onHideRu ? "ru" : "hidden ru"}
+                  onClick={showItem}
+               >
                   {ru}
                </span>
-            </li>
+            </LazyLoad>
          );
       });
       return <ul className="words__list">{items}</ul>;
@@ -157,9 +156,11 @@ const Words = ({ isAdmin, wordsFrom }) => {
          <WordsHeader
             title={title}
             words={words}
-            onHide={onHide}
+            onEnHideFunc={onEnHideFunc}
+            onHideEn={onHideEn}
+            onHideRu={onHideRu}
+            onRuHideFunc={onRuHideFunc}
             setShuffle={setShuffle}
-            showAll={showAll}
             shuffle={shuffle}
          />
          <div className="words _container">
@@ -172,20 +173,21 @@ const Words = ({ isAdmin, wordsFrom }) => {
                      <AddWordsForm handleClick={addWord} />
                   </div>
                   <div className="words__delete">
-                     <div className="words__delete-show" onClick={onShowRemove}>
-                        <svg>
-                           <use href={`${svg}#trashbin`}></use>
-                        </svg>
-                        Show delete
-                     </div>
                      <div
                         className="words__delete-show"
-                        onClick={onHideAllRemove}
+                        onClick={onShowDeleteFunc}
                      >
-                        <svg>
-                           <use href={`${svg}#hide`}></use>
-                        </svg>
-                        Hide delete
+                        {!onShowDelete ? (
+                           <svg>
+                              <use href={`${svg}#trashbin`}></use>
+                           </svg>
+                        ) : (
+                           <svg>
+                              <use href={`${svg}#hide`}></use>
+                           </svg>
+                        )}
+
+                        {!onShowDelete ? "Show delete" : "Hide delete"}
                      </div>
                   </div>
                </>
@@ -196,20 +198,20 @@ const Words = ({ isAdmin, wordsFrom }) => {
                      <AddWordsForm handleClick={addWord} />
                   </div>
                   <div className="words__delete">
-                     <div className="words__delete-show" onClick={onShowRemove}>
-                        <svg>
-                           <use href={`${svg}#trashbin`}></use>
-                        </svg>
-                        Show delete
-                     </div>
                      <div
                         className="words__delete-show"
-                        onClick={onHideAllRemove}
+                        onClick={onShowDeleteFunc}
                      >
-                        <svg>
-                           <use href={`${svg}#hide`}></use>
-                        </svg>
-                        Hide delete
+                        {!onShowDelete ? (
+                           <svg>
+                              <use href={`${svg}#trashbin`}></use>
+                           </svg>
+                        ) : (
+                           <svg>
+                              <use href={`${svg}#hide`}></use>
+                           </svg>
+                        )}
+                        {!onShowDelete ? "Show delete" : "Hide delete"}
                      </div>
                   </div>
                </>

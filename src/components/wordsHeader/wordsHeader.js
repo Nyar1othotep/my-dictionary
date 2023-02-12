@@ -1,4 +1,4 @@
-import gsap, { shuffle } from "gsap";
+import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Toggle from "../toggle/toggle";
 import { ThemeContext, themes } from "../../contexts/themeContext";
@@ -10,9 +10,11 @@ import { useNavigate } from "react-router-dom";
 const WordsHeader = ({
    title,
    words,
-   onHide,
+   onEnHideFunc,
+	onHideEn,
+	onHideRu,
+   onRuHideFunc,
    setShuffle,
-   showAll,
    shuffle,
 }) => {
    let navigate = useNavigate();
@@ -81,27 +83,21 @@ const WordsHeader = ({
                   <div className="words__controll">
                      <button
                         className="words__en-ru-btn words__btn btn"
-                        onClick={() => onHide(".en")}
+                        onClick={() => onEnHideFunc()}
                      >
-                        En-ru
+                        {!onHideEn ? "En-ru" : "Show words"}
                      </button>
                      <button
                         className="words__ru-en-btn words__btn btn"
-                        onClick={() => onHide(".ru")}
+                        onClick={() => onRuHideFunc(".ru")}
                      >
-                        Ru-en
+                        {!onHideRu ? "Ru-en" : "Show words"}
                      </button>
                      <button
                         className="words__shuffle-btn words__btn btn"
                         onClick={() => setShuffle((shuffle) => !shuffle)}
                      >
                         {!shuffle ? "Shuffle" : "In order"}
-                     </button>
-                     <button
-                        className="words__show-all-btn words__btn btn"
-                        onClick={showAll}
-                     >
-                        Show all
                      </button>
                      <div className="words__theme">
                         <ThemeContext.Consumer>

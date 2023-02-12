@@ -11,12 +11,12 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "store/slices/userSlice";
+
 const App = () => {
    const dispatch = useDispatch();
    const auth = getAuth();
 
    useEffect(() => {
-
       onAuthStateChanged(auth, (data) => {
          if (data !== null) {
             dispatch(
@@ -30,7 +30,6 @@ const App = () => {
       });
       // eslint-disable-next-line
    }, []);
-
 
    return (
       <HashRouter>
