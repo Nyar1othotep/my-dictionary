@@ -8,8 +8,11 @@ import { updateDoc, doc } from "firebase/firestore";
 import WordsHeader from "components/wordsHeader/wordsHeader";
 import Spinner from "components/spinner/spinner";
 import LazyLoad from "react-lazyload";
+import { useAlert } from "react-alert";
+import Helmet from "react-helmet";
 
 const Words = ({ isAdmin, wordsFrom }) => {
+   const alert = useAlert();
    const [words, setWords] = useState([]);
    const [title, setTitle] = useState("");
    const [wordsID, setWordsID] = useState(null);
@@ -75,10 +78,12 @@ const Words = ({ isAdmin, wordsFrom }) => {
             ru,
          },
       ]);
+      alert.success("Word added!");
    };
 
    const deleteWord = (id) => {
       setWords((words) => words.filter((item) => item.id !== id));
+      alert.success("Word deleted!");
    };
 
    const updateWords = async (words) => {
@@ -153,6 +158,13 @@ const Words = ({ isAdmin, wordsFrom }) => {
 
    return store.getState().words.wordsID !== null ? (
       <>
+         <Helmet>
+            <meta
+               name="description"
+               content={`${title}. My dictionary - words page`}
+            />
+            <title>{title}</title>
+         </Helmet>
          <WordsHeader
             title={title}
             words={words}

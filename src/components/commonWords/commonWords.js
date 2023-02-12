@@ -10,8 +10,10 @@ import { useHttp } from "hooks/http.hook";
 import { setWords } from "store/slices/wordsSlice";
 import Popup from "reactjs-popup";
 import AddMyWordsForm from "components/addMyWordsForm/addMyWordsForm";
+import { useAlert } from "react-alert";
 
 const CommonWords = () => {
+   const alert = useAlert();
    const dispatch = useDispatch();
    const { isAdmin } = useAuth();
    const [wordsList, setWordsList] = useState([]);
@@ -43,6 +45,7 @@ const CommonWords = () => {
          wordsArray: [],
       });
       onRequest();
+      alert.success("Item added!");
    };
 
    const deleteItem = async (id) => {
@@ -58,6 +61,7 @@ const CommonWords = () => {
    const onRemove = (itemID) => {
       if (window.confirm("Are you sure you want to delete this item?"))
          deleteItem(itemID);
+      alert.success("Item deleted!");
    };
 
    function renderItems(arr) {

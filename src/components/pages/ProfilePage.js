@@ -19,8 +19,12 @@ import { useDispatch } from "react-redux";
 import { setWords } from "store/slices/wordsSlice";
 import Popup from "reactjs-popup";
 import AddMyWordsForm from "components/addMyWordsForm/addMyWordsForm";
+import { useAlert } from "react-alert";
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+import Helmet from "react-helmet";
 
 const ProfilePage = () => {
+   const alert = useAlert();
    const dispatch = useDispatch();
    const { isAuth, userUID } = useAuth();
    const [wordsList, setWordsList] = useState([]);
@@ -55,6 +59,7 @@ const ProfilePage = () => {
          wordsArray: [],
       });
       onRequest();
+      alert.success("Item added!");
    };
 
    const deleteItem = async (id) => {
@@ -70,6 +75,7 @@ const ProfilePage = () => {
    const onRemove = (itemID) => {
       if (window.confirm("Are you sure you want to delete this item?"))
          deleteItem(itemID);
+      alert.success("Item deleted!");
    };
 
    function renderItems(arr) {
@@ -113,6 +119,13 @@ const ProfilePage = () => {
       });
       return (
          <ul className="btn-words__list">
+            <Helmet>
+               <meta
+                  name="description"
+                  content={`My dictionary - profile page`}
+               />
+               <title>My dictionary - profile</title>
+            </Helmet>
             {items}
             <Popup
                trigger={
@@ -149,7 +162,9 @@ const ProfilePage = () => {
          <div className="profile-page">
             <div className="profile-page__container _container">
                <div className="profile-page__body">
-                  <Logout />
+                  <ErrorBoundary>
+                     <Logout />
+                  </ErrorBoundary>
                   <div className="profile-page__row">
                      <div className="profile-page__title">My words</div>
                      {!isDelete ? (

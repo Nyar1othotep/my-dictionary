@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { setUser } from "store/slices/userSlice";
+import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
 const App = () => {
    const dispatch = useDispatch();
@@ -42,7 +43,14 @@ const App = () => {
                      path="/user/registration"
                      element={<RegistrationPage />}
                   />
-                  <Route path="/user/profile" element={<ProfilePage />} />
+                  <Route
+                     path="/user/profile"
+                     element={
+                        <ErrorBoundary>
+                           <ProfilePage />
+                        </ErrorBoundary>
+                     }
+                  />
                   <Route path="/words" element={<WordsPage />} />
                   <Route path="/common-words" element={<CommonWordsPage />} />
                </Routes>
