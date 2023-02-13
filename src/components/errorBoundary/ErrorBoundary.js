@@ -4,11 +4,10 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 class ErrorBoundary extends Component {
    constructor(props) {
       super(props);
+      this.state = {
+         error: false,
+      };
    }
-
-   state = {
-      error: false,
-   };
 
    componentDidCatch(error, errorInfo) {
       this.setState({ error: true });

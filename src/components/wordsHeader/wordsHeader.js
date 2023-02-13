@@ -11,11 +11,12 @@ const WordsHeader = ({
    title,
    words,
    onEnHideFunc,
-	onHideEn,
-	onHideRu,
+   onHideEn,
+   onHideRu,
    onRuHideFunc,
    setShuffle,
    shuffle,
+   wordsFrom,
 }) => {
    let navigate = useNavigate();
    const settings = useRef();
@@ -56,7 +57,11 @@ const WordsHeader = ({
                   <div className="words__row">
                      <div
                         className="words__return"
-                        onClick={() => navigate("/user/profile")}
+                        onClick={() => {
+                           wordsFrom === "common"
+                              ? navigate("/")
+                              : navigate("/user/profile");
+                        }}
                      >
                         <svg>
                            <use href={`${svg}#return`}></use>

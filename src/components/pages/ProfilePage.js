@@ -30,7 +30,7 @@ const ProfilePage = () => {
    const [wordsList, setWordsList] = useState([]);
    const [isDelete, setIsDelete] = useState(false);
 
-   const { request, process, setProcess } = useHttp();
+	const { request, process, setProcess } = useHttp();
 
    const usersWordsCollectionRef = collection(db, "usersWords");
    const q = query(usersWordsCollectionRef, where("UserUID", "==", userUID));

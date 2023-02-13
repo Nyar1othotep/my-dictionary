@@ -174,6 +174,7 @@ const Words = ({ isAdmin, wordsFrom }) => {
             onRuHideFunc={onRuHideFunc}
             setShuffle={setShuffle}
             shuffle={shuffle}
+            wordsFrom={wordsFrom}
          />
          <div className="words _container">
             <div className="up hidden" id="up"></div>
