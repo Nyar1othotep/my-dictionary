@@ -16,6 +16,7 @@
 
 $disabled: #8e8e8e;
 $black: #000000;
+$yellow: #d6b520;
 @mixin lh($lh, $fz) {
    line-height: calc(#{$lh} / #{$fz} * 100%);
 }

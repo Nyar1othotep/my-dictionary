@@ -21,6 +21,7 @@ const Words = ({ isAdmin, wordsFrom }) => {
    const [onHideEn, setOnHideEn] = useState(false);
    const [onHideRu, setOnHideRu] = useState(false);
    const [onShowDelete, setOnShowDelete] = useState(false);
+   const [onShowFavorite, setOnShowFavorite] = useState(false);
    const [onAscending, setOnAscending] = useState(true);
    const [voices, speak] = useSpeechSynthesis();
    const [currentVoice, setCurrentVoice] = useState();
@@ -78,6 +79,10 @@ const Words = ({ isAdmin, wordsFrom }) => {
       setOnShowDelete((onShowDelete) => !onShowDelete);
    };
 
+   const onHideFavoriteFunc = () => {
+      setOnShowFavorite((onShowFavorite) => !onShowFavorite);
+   };
+
    const onAscendingFunc = () => {
       setOnAscending((onAscending) => !onAscending);
    };
@@ -97,6 +102,7 @@ const Words = ({ isAdmin, wordsFrom }) => {
             id: words.length + 1,
             en,
             ru,
+            favorite: false,
          },
       ]);
       alert.success("Word added!");
@@ -105,6 +111,30 @@ const Words = ({ isAdmin, wordsFrom }) => {
    const deleteWord = (id) => {
       setWords((words) => words.filter((item) => item.id !== id));
       alert.success("Word deleted!");
+   };
+
+   const addToFavorite = (id) => {
+      setWords((words) =>
+         words.map((item) => {
+            if (item.id === id) {
+               return { ...item, favorite: true };
+            }
+            return item;
+         })
+      );
+      alert.success("Word added to favorite!");
+   };
+
+   const removeFromFavorite = (id) => {
+      setWords((words) =>
+         words.map((item) => {
+            if (item.id === id) {
+               return { ...item, favorite: false };
+            }
+            return item;
+         })
+      );
+      alert.success("Word removed from favorite!");
    };
 
    const updateWords = async (words) => {
@@ -130,6 +160,100 @@ const Words = ({ isAdmin, wordsFrom }) => {
             : method === "reverse"
             ? reverseArray([...arr])
             : arr;
+
+      const itemsFavorite = newArr.map((item, i) => {
+         let ru = (function () {
+            let index = item.ru.indexOf("(");
+            return index > -1 ? (
+               <>
+                  <div className="words__text">{item.ru.slice(0, index)}</div>
+                  <div className="words__descr">
+                     {item.ru.slice(index - 1 + 1)}
+                  </div>
+               </>
+            ) : (
+               item.ru
+            );
+         })();
+
+         return (
+            <>
+               {item.favorite ? (
+                  <LazyLoad
+                     offset={100}
+                     className="words__item favorite"
+                     key={item.id}
+                  >
+                     <div
+                        className={
+                           !onShowDelete
+                              ? "words__remove"
+                              : "words__remove active"
+                        }
+                        onClick={() => {
+                           if (
+                              window.confirm(
+                                 "Are you sure you want to delete this word?"
+                              )
+                           ) {
+                              deleteWord(item.id);
+                           }
+                        }}
+                     >
+                        <svg>
+                           <use href={`${svg}#remove`}></use>
+                        </svg>
+                     </div>
+                     {wordsFrom === "private" ? (
+                        <div
+                           className={
+                              !onShowFavorite
+                                 ? "words__favorite added"
+                                 : "words__favorite"
+                           }
+                           onClick={() => {
+                              if (
+                                 window.confirm(
+                                    "Are you sure you want to remove this word from favorite?"
+                                 )
+                              ) {
+                                 removeFromFavorite(item.id);
+                              }
+                           }}
+                        >
+                           <svg>
+                              <use href={`${svg}#favorite-fill`}></use>
+                           </svg>
+                        </div>
+                     ) : null}
+                     <div className="words__number">{i + 1})</div>
+                     <span
+                        className={!onHideEn ? "en" : "hidden en"}
+                        onClick={showItem}
+                     >
+                        {item.en}
+                        <div
+                           className="tts"
+                           onClick={() => speechSynthesis(item.en)}
+                        >
+                           <svg>
+                              <use href={`${svg}#play`}></use>
+                           </svg>
+                        </div>
+                     </span>
+                     <span>−</span>
+                     <span
+                        className={!onHideRu ? "ru" : "hidden ru"}
+                        onClick={showItem}
+                     >
+                        {ru}
+                     </span>
+                  </LazyLoad>
+               ) : null}
+            </>
+         );
+      });
+
       const items = newArr.map((item, i) => {
          let ru = (function () {
             let index = item.ru.indexOf("(");
@@ -146,48 +270,96 @@ const Words = ({ isAdmin, wordsFrom }) => {
          })();
 
          return (
-            <LazyLoad offset={100} className="words__item" key={i}>
-               <div
-                  className={
-                     !onShowDelete ? "words__remove" : "words__remove active"
-                  }
-                  onClick={() => {
-                     if (
-                        window.confirm(
-                           "Are you sure you want to delete this word?"
-                        )
-                     ) {
-                        deleteWord(item.id);
-                     }
-                  }}
-               >
-                  <svg>
-                     <use href={`${svg}#remove`}></use>
-                  </svg>
-               </div>
-               <div className="words__number">{i + 1})</div>
-               <span
-                  className={!onHideEn ? "en" : "hidden en"}
-                  onClick={showItem}
-               >
-                  {item.en}
-                  <div className="tts" onClick={() => speechSynthesis(item.en)}>
-                     <svg>
-                        <use href={`${svg}#play`}></use>
-                     </svg>
-                  </div>
-               </span>
-               <span>−</span>
-               <span
-                  className={!onHideRu ? "ru" : "hidden ru"}
-                  onClick={showItem}
-               >
-                  {ru}
-               </span>
-            </LazyLoad>
+            <>
+               {!item.favorite ? (
+                  <LazyLoad offset={100} className="words__item" key={item.id}>
+                     <div
+                        className={
+                           !onShowDelete
+                              ? "words__remove"
+                              : "words__remove active"
+                        }
+                        onClick={() => {
+                           if (
+                              window.confirm(
+                                 "Are you sure you want to delete this word?"
+                              )
+                           ) {
+                              deleteWord(item.id);
+                           }
+                        }}
+                     >
+                        <svg>
+                           <use href={`${svg}#remove`}></use>
+                        </svg>
+                     </div>
+                     {wordsFrom === "private" ? (
+                        <div
+                           className={
+                              !onShowFavorite
+                                 ? "words__favorite active"
+                                 : "words__favorite"
+                           }
+                           onClick={() => {
+                              if (
+                                 window.confirm(
+                                    "Are you sure you want to add this word to favorite?"
+                                 )
+                              ) {
+                                 addToFavorite(item.id);
+                              }
+                           }}
+                        >
+                           <svg>
+                              <use href={`${svg}#favorite-border`}></use>
+                           </svg>
+                        </div>
+                     ) : null}
+                     <div className="words__number">{i + 1})</div>
+                     <span
+                        className={!onHideEn ? "en" : "hidden en"}
+                        onClick={showItem}
+                     >
+                        {item.en}
+                        <div
+                           className="tts"
+                           onClick={() => speechSynthesis(item.en)}
+                        >
+                           <svg>
+                              <use href={`${svg}#play`}></use>
+                           </svg>
+                        </div>
+                     </span>
+                     <span>−</span>
+                     <span
+                        className={!onHideRu ? "ru" : "hidden ru"}
+                        onClick={showItem}
+                     >
+                        {ru}
+                     </span>
+                  </LazyLoad>
+               ) : null}
+            </>
          );
       });
-      return <ul className="words__list">{items}</ul>;
+      return (
+         <>
+            <ul className="words__lists">
+               {wordsFrom === "private" ? (
+                  <div>
+                     <div className="words__list-title">Favorite</div>
+                     <div className="words__favorite-list words__list">
+                        {itemsFavorite}
+                     </div>
+                  </div>
+               ) : null}
+               <div>
+                  <div className="words__list-title">Words</div>
+                  <div className="words__list">{items}</div>
+               </div>
+            </ul>
+         </>
+      );
    }
 
    return store.getState().words.wordsID !== null ? (
@@ -227,6 +399,8 @@ const Words = ({ isAdmin, wordsFrom }) => {
                         onAscendingFunc={onAscendingFunc}
                         onAscending={onAscending}
                         onlyFilter={false}
+                        onShowFavorite={onShowFavorite}
+                        onHideFavoriteFunc={onHideFavoriteFunc}
                      />
                   ) : wordsFrom === "common" && isAdmin ? (
                      <WordsControl
@@ -237,6 +411,8 @@ const Words = ({ isAdmin, wordsFrom }) => {
                         onAscendingFunc={onAscendingFunc}
                         onAscending={onAscending}
                         onlyFilter={false}
+                        onShowFavorite={onShowFavorite}
+                        onHideFavoriteFunc={onHideFavoriteFunc}
                      />
                   ) : wordsFrom === "common" && !isAdmin ? (
                      <WordsControl
@@ -247,6 +423,8 @@ const Words = ({ isAdmin, wordsFrom }) => {
                         onAscendingFunc={onAscendingFunc}
                         onAscending={onAscending}
                         onlyFilter={true}
+                        onShowFavorite={onShowFavorite}
+                        onHideFavoriteFunc={onHideFavoriteFunc}
                      />
                   ) : null}
 
@@ -283,6 +461,8 @@ const WordsControl = ({
    onAscendingFunc,
    onAscending,
    onlyFilter,
+   onShowFavorite,
+   onHideFavoriteFunc,
 }) => {
    return (
       <>
@@ -294,18 +474,38 @@ const WordsControl = ({
          ) : null}
          <div className="words__delete-filter">
             {!onlyFilter ? (
-               <div className="words__delete-show" onClick={onShowDeleteFunc}>
-                  {!onShowDelete ? (
-                     <svg>
-                        <use href={`${svg}#trashbin`}></use>
-                     </svg>
-                  ) : (
-                     <svg>
-                        <use href={`${svg}#hide`}></use>
-                     </svg>
-                  )}
-                  {!onShowDelete ? "Show delete" : "Hide delete"}
-               </div>
+               <>
+                  <div
+                     className="words__delete-show"
+                     onClick={onShowDeleteFunc}
+                  >
+                     {!onShowDelete ? (
+                        <svg>
+                           <use href={`${svg}#trashbin`}></use>
+                        </svg>
+                     ) : (
+                        <svg>
+                           <use href={`${svg}#hide`}></use>
+                        </svg>
+                     )}
+                     {!onShowDelete ? "Show delete" : "Hide delete"}
+                  </div>
+                  <div
+                     className="words__favorite-show"
+                     onClick={onHideFavoriteFunc}
+                  >
+                     {!onShowFavorite ? (
+                        <svg>
+                           <use href={`${svg}#hide`}></use>
+                        </svg>
+                     ) : (
+                        <svg>
+                           <use href={`${svg}#favorite-fill`}></use>
+                        </svg>
+                     )}
+                     {!onShowFavorite ? "Hide favorite" : "Show favorite"}
+                  </div>
+               </>
             ) : null}
             <div onClick={onAscendingFunc}>
                <svg>

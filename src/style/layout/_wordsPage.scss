@@ -98,11 +98,20 @@
          color: $disabled;
       }
    }
-   &__list {
+   &__lists {
       padding: 30px 0px 30px 0px;
+      & > *:not(:last-child) {
+         margin: 0px 0px 60px 0px;
+      }
+   }
+   &__list {
       & > *:not(:last-child) {
          margin: 0px 0px 20px 0px;
       }
+   }
+   &__list-title {
+      margin: 0px 0px 30px 0px;
+      color: $disabled;
    }
    &__item {
       display: flex;
@@ -214,7 +223,9 @@
       padding: 10px 0;
       display: flex;
       justify-content: space-between;
+		flex-wrap: wrap;
       font-size: 12px;
+		gap: 10px;
       color: var(--main-color);
       border-bottom: 4px solid var(--header-border-bottom);
       & div {
@@ -255,6 +266,33 @@
          display: block;
       }
    }
+   &__favorite {
+      margin: 0px 5px 0px 0px;
+      cursor: pointer;
+		display: none;
+      & svg {
+         margin: 0px 0px -5px 0px;
+         width: 24px;
+         height: 24px;
+         fill: $disabled;
+         transition: ease 0.4s;
+      }
+      &:hover svg {
+         fill: $yellow;
+      }
+      &.active {
+         display: block;
+      }
+      &.added {
+         display: block;
+         & svg {
+            fill: $yellow;
+         }
+			&:hover svg {
+				fill: $disabled;
+			}
+      }
+   }
    &__empy {
       padding: 30px 0px 0px 0px;
       color: $disabled;
@@ -289,12 +327,12 @@
 }
 
 .select {
-	display: flex;
-	align-items: center;
-	select {
-		font-size: 14px;
-		max-width: 200px;
-	}
+   display: flex;
+   align-items: center;
+   select {
+      font-size: 14px;
+      max-width: 200px;
+   }
 }
 
 @media (max-width: 600px) {

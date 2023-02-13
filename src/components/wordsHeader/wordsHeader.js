@@ -129,8 +129,11 @@ const WordsHeader = ({
                            value={currentVoice ? currentVoice.name : ""}
                            onChange={handleVoiceChange}
                         >
-                           {voices.map((v) => (
-                              <option value={v.name}>{`${v.name}`}</option>
+                           {voices.map((v, i) => (
+                              <option
+                                 value={v.name}
+                                 key={i}
+                              >{`${v.name}`}</option>
                            ))}
                         </select>
                      </div>
