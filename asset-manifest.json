@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/my-dictionary/static/css/main.e2caccb1.css",
-    "main.js": "/my-dictionary/static/js/main.772c0837.js",
+    "main.css": "/my-dictionary/static/css/main.0589c7a8.css",
+    "main.js": "/my-dictionary/static/js/main.eb7e8279.js",
     "static/media/error.png": "/my-dictionary/static/media/error.0f9943c0a21c277c58b8.png",
     "static/media/sprites.svg": "/my-dictionary/static/media/sprites.a36719949ea9fe316e11499c0d11c3de.svg",
-    "static/media/Infinity-1s-200px.svg": "/my-dictionary/static/media/Infinity-1s-200px.0108a1f4870deff0ab76e5054e71197b.svg",
     "index.html": "/my-dictionary/index.html",
-    "main.e2caccb1.css.map": "/my-dictionary/static/css/main.e2caccb1.css.map",
-    "main.772c0837.js.map": "/my-dictionary/static/js/main.772c0837.js.map"
+    "static/media/Infinity-1s-200px.svg": "/my-dictionary/static/media/Infinity-1s-200px.0108a1f4870deff0ab76e5054e71197b.svg",
+    "main.0589c7a8.css.map": "/my-dictionary/static/css/main.0589c7a8.css.map",
+    "main.eb7e8279.js.map": "/my-dictionary/static/js/main.eb7e8279.js.map"
   },
   "entrypoints": [
-    "static/css/main.e2caccb1.css",
-    "static/js/main.772c0837.js"
+    "static/css/main.0589c7a8.css",
+    "static/js/main.eb7e8279.js"
   ]
 }
