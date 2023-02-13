@@ -69,8 +69,8 @@ const WordsHeader = ({
                      </div>
                      <div className="words__info">
                         <div className="words__title">
-                           {title.length > 15
-                              ? title.substring(0, 15) + "..."
+                           {title.length > 18
+                              ? title.substring(0, 18) + "..."
                               : title}
                         </div>
                         <div className="words__total">
