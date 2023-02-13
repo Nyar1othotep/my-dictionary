@@ -48,6 +48,10 @@ const Words = ({ isAdmin, wordsFrom }) => {
       return array;
    };
 
+   const reverseArray = (array) => {
+      return array.reverse();
+   };
+
    const onEnHideFunc = () => {
       setOnHideEn((onHideEn) => !onHideEn);
    };
@@ -108,7 +112,12 @@ const Words = ({ isAdmin, wordsFrom }) => {
    };
 
    function renderItems(arr, method) {
-      const newArr = method === "shuffle" ? shuffleArray([...arr]) : arr;
+      const newArr =
+         method === "shuffle"
+            ? shuffleArray([...arr])
+            : method === "reverse"
+            ? reverseArray([...arr])
+            : arr;
       const items = newArr.map((item, i) => {
          let ru = (function () {
             let index = item.ru.indexOf("(");
@@ -226,10 +235,12 @@ const Words = ({ isAdmin, wordsFrom }) => {
 
                   {words.length === 0 ? (
                      <Spinner />
-                  ) : !shuffle ? (
-                     renderItems(words, "defualt")
-                  ) : (
+                  ) : shuffle ? (
                      renderItems(words, "shuffle")
+                  ) : !onAscending ? (
+                     renderItems(words, "reverse")
+                  ) : (
+                     renderItems(words, "defualt")
                   )}
                   <div className="down hidden" id="down"></div>
                </div>

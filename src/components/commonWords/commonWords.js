@@ -59,9 +59,10 @@ const CommonWords = () => {
    };
 
    const onRemove = (itemID) => {
-      if (window.confirm("Are you sure you want to delete this item?"))
+      if (window.confirm("Are you sure you want to delete this item?")) {
          deleteItem(itemID);
-      alert.success("Item deleted!");
+         alert.success("Item deleted!");
+      }
    };
 
    function renderItems(arr) {
@@ -88,7 +89,9 @@ const CommonWords = () => {
             >
                <li className="btn-words__item item-btn-words">
                   <div className="item-btn-words__title">
-                     {item.title.substring(0, 28) + ""}
+                     {item.title.length > 28
+                        ? item.title.substring(0, 28) + "..."
+                        : item.title}
                   </div>
                   <svg>
                      <use href={`${svg}#go`}></use>
@@ -100,7 +103,9 @@ const CommonWords = () => {
             <a key={item.id} onClick={() => onRemove(item.id)}>
                <li className="btn-words__item item-btn-words">
                   <div className="item-btn-words__title">
-                     {item.title.substring(0, 28) + ""}
+                     {item.title.length > 28
+                        ? item.title.substring(0, 28) + "..."
+                        : item.title}
                   </div>
                   <svg>
                      <use href={`${svg}#remove`}></use>
