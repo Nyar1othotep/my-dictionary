@@ -288,7 +288,26 @@
    margin: 0 auto;
 }
 
-@media (max-width: 500px) {
+.select {
+	display: flex;
+	align-items: center;
+	select {
+		font-size: 14px;
+		max-width: 200px;
+	}
+}
+
+@media (max-width: 600px) {
+   .words {
+      &__body {
+         &.active {
+            height: 136px;
+         }
+      }
+   }
+}
+
+@media (max-width: 400px) {
    .words {
       &__body {
          &.active {

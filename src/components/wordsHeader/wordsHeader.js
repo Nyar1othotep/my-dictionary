@@ -17,6 +17,9 @@ const WordsHeader = ({
    setShuffle,
    shuffle,
    wordsFrom,
+   currentVoice,
+   handleVoiceChange,
+   voices,
 }) => {
    let navigate = useNavigate();
    const settings = useRef();
@@ -120,6 +123,16 @@ const WordsHeader = ({
                               />
                            )}
                         </ThemeContext.Consumer>
+                     </div>
+                     <div className="select">
+                        <select
+                           value={currentVoice ? currentVoice.name : ""}
+                           onChange={handleVoiceChange}
+                        >
+                           {voices.map((v) => (
+                              <option value={v.name}>{`${v.name}`}</option>
+                           ))}
+                        </select>
                      </div>
                   </div>
                </div>

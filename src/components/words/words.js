@@ -10,6 +10,7 @@ import Spinner from "components/spinner/spinner";
 import LazyLoad from "react-lazyload";
 import { useAlert } from "react-alert";
 import Helmet from "react-helmet";
+import { useSpeechSynthesis } from "hooks/useSpeechSynthesis";
 
 const Words = ({ isAdmin, wordsFrom }) => {
    const alert = useAlert();
@@ -21,6 +22,8 @@ const Words = ({ isAdmin, wordsFrom }) => {
    const [onHideRu, setOnHideRu] = useState(false);
    const [onShowDelete, setOnShowDelete] = useState(false);
    const [onAscending, setOnAscending] = useState(true);
+   const [voices, speak] = useSpeechSynthesis();
+   const [currentVoice, setCurrentVoice] = useState();
 
    useEffect(() => {
       setWords((words) => store.getState().words.wordsArray);
@@ -33,6 +36,17 @@ const Words = ({ isAdmin, wordsFrom }) => {
       updateWords(words);
       // eslint-disable-next-line
    }, [words]);
+
+   useEffect(() => {
+      if (!currentVoice) {
+         setCurrentVoice(voices.filter((v) => v.default)[0] || voices[0]);
+      }
+      // eslint-disable-next-line
+   }, [voices]);
+
+   const handleVoiceChange = (e) => {
+      setCurrentVoice(voices.filter((v) => v.name === e.target.value)[0]);
+   };
 
    const shuffleArray = (array) => {
       let m = array.length,
@@ -73,9 +87,7 @@ const Words = ({ isAdmin, wordsFrom }) => {
    };
 
    const speechSynthesis = (value) => {
-      const utterance = new SpeechSynthesisUtterance(value);
-      utterance.rate = 0.8;
-      window.speechSynthesis.speak(utterance);
+      speak(value, currentVoice);
    };
 
    const addWord = (en, ru) => {
@@ -139,7 +151,15 @@ const Words = ({ isAdmin, wordsFrom }) => {
                   className={
                      !onShowDelete ? "words__remove" : "words__remove active"
                   }
-                  onClick={() => deleteWord(item.id)}
+                  onClick={() => {
+                     if (
+                        window.confirm(
+                           "Are you sure you want to delete this word?"
+                        )
+                     ) {
+                        deleteWord(item.id);
+                     }
+                  }}
                >
                   <svg>
                      <use href={`${svg}#remove`}></use>
@@ -189,6 +209,9 @@ const Words = ({ isAdmin, wordsFrom }) => {
             setShuffle={setShuffle}
             shuffle={shuffle}
             wordsFrom={wordsFrom}
+            currentVoice={currentVoice}
+            handleVoiceChange={handleVoiceChange}
+            voices={voices}
          />
          <main>
             <div className="words-page">
