@@ -19,8 +19,28 @@ body {
 }
 
 .btn-error {
-	margin: 20px auto 0px auto;
-	max-width: 200px;
+   margin: 20px auto 0px auto;
+   max-width: 200px;
+}
+
+.errorMessage {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   padding: 30px 0;
+   & img {
+      max-width: 200px;
+   }
+}
+
+.page404 {
+   padding: 20px 0px 0px 0px;
+   font-size: 24px;
+   font-weight: 600;
+   @include lh(28, 24);
+   color: var(--main-color);
+   text-align: center;
 }
 
 /* ----------------CONTAINER------------------------------------------------- */

@@ -6,7 +6,12 @@ const CommonWordsPage = () => {
    const { isAdmin } = useAuth();
 
    return (
-      <ErrorBoundary>
+      <ErrorBoundary
+         styles={{
+            width: "100%",
+            height: "100vh",
+         }}
+      >
          <Words isAdmin={isAdmin} wordsFrom="common" />
       </ErrorBoundary>
    );

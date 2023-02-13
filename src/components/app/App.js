@@ -6,6 +6,7 @@ import {
    ProfilePage,
    WordsPage,
    CommonWordsPage,
+   Page404,
 } from "../pages";
 import { useEffect } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -46,13 +47,19 @@ const App = () => {
                   <Route
                      path="/user/profile"
                      element={
-                        <ErrorBoundary>
+                        <ErrorBoundary
+                           styles={{
+                              width: "100%",
+                              height: "100vh",
+                           }}
+                        >
                            <ProfilePage />
                         </ErrorBoundary>
                      }
                   />
                   <Route path="/words" element={<WordsPage />} />
                   <Route path="/common-words" element={<CommonWordsPage />} />
+                  <Route path="*" element={<Page404 />} />
                </Routes>
             </main>
          </div>
