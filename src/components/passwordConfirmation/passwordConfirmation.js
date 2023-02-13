@@ -21,6 +21,9 @@ const PasswordConfirmation = ({ handleClick, onClose }) => {
          }}
       >
          <Form className="add-words-form form">
+            <div className="form-info">
+               All your data and records will also be deleted!
+            </div>
             <MyTextInput
                className="form-input"
                id="password"

@@ -29,9 +29,7 @@ const LoginPage = () => {
          .catch((error) => {
             let errors = (function () {
                let index = error.message.indexOf("(");
-               return index > -1
-                  ? error.message.slice(index)
-                  : error.message;
+               return index > -1 ? error.message.slice(index) : error.message;
             })();
             alert.error(errors);
          });
@@ -39,7 +37,7 @@ const LoginPage = () => {
 
    return !isAuth ? (
       <div className="login-page">
-			<Helmet>
+         <Helmet>
             <meta name="description" content={`My dictionary - login page`} />
             <title>My dictionary - login</title>
          </Helmet>

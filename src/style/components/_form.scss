@@ -6,6 +6,10 @@
    & > *:not(:last-child) {
       margin: 0px 0px 35px 0px;
    }
+   &-info {
+      color: var(--main-color);
+      text-align: center;
+   }
    & .form-btn {
       margin: 20px 0px 0px 0px;
    }
@@ -29,5 +33,11 @@
       @include lh(15, 12);
       text-align: center;
       color: $disabled;
+   }
+   &__forgot {
+      margin: 20px 0px 0px 0px;
+      text-align: center;
+      color: var(--main-color);
+      cursor: pointer;
    }
 }

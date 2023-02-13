@@ -2,8 +2,29 @@ import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { MyTextInput } from "../../utils/MyTextInput";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { useAlert } from "react-alert";
+import Popup from "reactjs-popup";
+import PasswordResetEnterEmail from "components/passwordResetEnterEmail/passwordResetEnterEmail";
 
 const LoginForm = ({ handleClick }) => {
+   const auth = getAuth();
+   const alert = useAlert();
+
+   const sendResetPassword = (email) => {
+      sendPasswordResetEmail(auth, email)
+         .then(() => {
+            alert.success("Password reset email sent!");
+         })
+         .catch((error) => {
+            let errors = (function () {
+               let index = error.message.indexOf("(");
+               return index > -1 ? error.message.slice(index) : error.message;
+            })();
+            alert.error(errors);
+         });
+   };
+
    return (
       <Formik
          initialValues={{
@@ -48,6 +69,27 @@ const LoginForm = ({ handleClick }) => {
                <p>No account?</p>
                <Link to="/user/registration">Create one</Link>
             </div>
+            <Popup
+               trigger={
+                  <div
+                     className="form__forgot"
+                     onClick={() => sendResetPassword()}
+                  >
+                     Forgot Password?
+                  </div>
+               }
+               position="top left"
+               lockScroll
+               closeOnEscape
+               modal
+            >
+               {(close) => (
+                  <PasswordResetEnterEmail
+                     handleClick={sendResetPassword}
+                     onClose={close}
+                  />
+               )}
+            </Popup>
          </Form>
       </Formik>
    );
