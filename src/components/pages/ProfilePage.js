@@ -30,7 +30,7 @@ const ProfilePage = () => {
    const [wordsList, setWordsList] = useState([]);
    const [isDelete, setIsDelete] = useState(false);
 
-	const { request, process, setProcess } = useHttp();
+   const { request, process, setProcess } = useHttp();
 
    const usersWordsCollectionRef = collection(db, "usersWords");
    const q = query(usersWordsCollectionRef, where("UserUID", "==", userUID));
@@ -119,13 +119,6 @@ const ProfilePage = () => {
       });
       return (
          <ul className="btn-words__list">
-            <Helmet>
-               <meta
-                  name="description"
-                  content={`My dictionary - profile page`}
-               />
-               <title>My dictionary - profile</title>
-            </Helmet>
             {items}
             <Popup
                trigger={
@@ -157,47 +150,59 @@ const ProfilePage = () => {
    );
 
    return isAuth ? (
-      <div className="profile">
+      <>
+         <Helmet>
+            <meta name="description" content={`My dictionary - profile page`} />
+            <title>My dictionary - profile</title>
+         </Helmet>
          <Header />
-         <div className="profile-page">
-            <div className="profile-page__container _container">
-               <div className="profile-page__body">
-                  <ErrorBoundary>
-                     <Logout />
-                  </ErrorBoundary>
-                  <div className="profile-page__row">
-                     <div className="profile-page__title">My words</div>
-                     {!isDelete ? (
-                        <div
-                           className="profile-page__delete"
-                           onClick={() => setIsDelete((isDelete) => !isDelete)}
-                        >
-                           <svg>
-                              <use href={`${svg}#trashbin`}></use>
-                           </svg>
-                           Show Delete
+         <main>
+            <div className="profile">
+               <div className="profile-page">
+                  <div className="profile-page__container _container">
+                     <div className="profile-page__body">
+                        <ErrorBoundary>
+                           <Logout />
+                        </ErrorBoundary>
+                        <div className="profile-page__row">
+                           <div className="profile-page__title">My words</div>
+                           {!isDelete ? (
+                              <div
+                                 className="profile-page__delete"
+                                 onClick={() =>
+                                    setIsDelete((isDelete) => !isDelete)
+                                 }
+                              >
+                                 <svg>
+                                    <use href={`${svg}#trashbin`}></use>
+                                 </svg>
+                                 Show Delete
+                              </div>
+                           ) : (
+                              <div
+                                 className="profile-page__delete"
+                                 onClick={() =>
+                                    setIsDelete((isDelete) => !isDelete)
+                                 }
+                              >
+                                 <svg>
+                                    <use href={`${svg}#hide`}></use>
+                                 </svg>
+                                 Hide Delete
+                              </div>
+                           )}
                         </div>
-                     ) : (
-                        <div
-                           className="profile-page__delete"
-                           onClick={() => setIsDelete((isDelete) => !isDelete)}
-                        >
-                           <svg>
-                              <use href={`${svg}#hide`}></use>
-                           </svg>
-                           Hide Delete
-                        </div>
-                     )}
+                        {elements}
+                     </div>
                   </div>
-                  {elements}
                </div>
             </div>
-         </div>
-         <div className="words__footer">
+         </main>
+         <footer className="words__footer">
             Created by{" "}
             <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023
-         </div>
-      </div>
+         </footer>
+      </>
    ) : (
       <Navigate to="/user/login" />
    );

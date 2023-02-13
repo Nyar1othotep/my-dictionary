@@ -8,16 +8,6 @@ body {
    scroll-behavior: smooth;
 }
 
-.main-page,
-.profile {
-   display: flex;
-   flex-direction: column;
-   height: 100vh;
-   & > *:nth-last-child(2) {
-      flex: 1 1 auto;
-   }
-}
-
 .btn-error {
    margin: 20px auto 0px auto;
    max-width: 200px;

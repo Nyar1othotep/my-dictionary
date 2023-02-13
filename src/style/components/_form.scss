@@ -13,11 +13,10 @@
       margin: 25px auto 0px auto !important;
       display: flex;
       align-items: center;
+      justify-content: center;
       flex-wrap: wrap;
       color: $disabled;
-      & > *:not(:last-child) {
-         margin: 0px 10px 0px 0px;
-      }
+      gap: 10px;
       & a {
          text-decoration: underline;
          color: var(--main-color);

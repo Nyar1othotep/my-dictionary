@@ -51,7 +51,7 @@ const WordsHeader = ({
 
    return (
       <>
-         <div className="words__header">
+         <header className="words__header">
             <div className="words__container _container">
                <div className="words__body" ref={wordsBody}>
                   <div className="words__row">
@@ -122,15 +122,18 @@ const WordsHeader = ({
                   </div>
                </div>
             </div>
-         </div>
-         <div className="words__btns-up-down">
-            <AnchorLink className="words__btn-up words__btn btn" href="#up">
-               <p>❯</p>
-            </AnchorLink>
-            <AnchorLink className="words__btn-down words__btn btn" href="#down">
-               <p>❯</p>
-            </AnchorLink>
-         </div>
+            <div className="words__btns-up-down">
+               <AnchorLink className="words__btn-up words__btn btn" href="#up">
+                  <p>❯</p>
+               </AnchorLink>
+               <AnchorLink
+                  className="words__btn-down words__btn btn"
+                  href="#down"
+               >
+                  <p>❯</p>
+               </AnchorLink>
+            </div>
+         </header>
       </>
    );
 };

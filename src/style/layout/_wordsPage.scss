@@ -6,6 +6,9 @@
 }
 
 .words {
+   &-page {
+		width: 100%;
+   }
    &__header {
       padding: 15px 0;
       background-color: var(--header-backgound-color);
@@ -206,7 +209,7 @@
          color: var(--main-color);
       }
    }
-   &__delete {
+   &__delete-filter {
       padding: 10px 0;
       display: flex;
       justify-content: space-between;

@@ -35,34 +35,27 @@ const App = () => {
 
    return (
       <HashRouter>
-         <div className="app">
-            <main>
-               <Routes>
-                  <Route path="/" element={<MainPage />} />
-                  <Route path="/user/login" element={<LoginPage />} />
-                  <Route
-                     path="/user/registration"
-                     element={<RegistrationPage />}
-                  />
-                  <Route
-                     path="/user/profile"
-                     element={
-                        <ErrorBoundary
-                           styles={{
-                              width: "100%",
-                              height: "100vh",
-                           }}
-                        >
-                           <ProfilePage />
-                        </ErrorBoundary>
-                     }
-                  />
-                  <Route path="/words" element={<WordsPage />} />
-                  <Route path="/common-words" element={<CommonWordsPage />} />
-                  <Route path="*" element={<Page404 />} />
-               </Routes>
-            </main>
-         </div>
+         <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/user/login" element={<LoginPage />} />
+            <Route path="/user/registration" element={<RegistrationPage />} />
+            <Route
+               path="/user/profile"
+               element={
+                  <ErrorBoundary
+                     styles={{
+                        width: "100%",
+                        height: "100vh",
+                     }}
+                  >
+                     <ProfilePage />
+                  </ErrorBoundary>
+               }
+            />
+            <Route path="/words" element={<WordsPage />} />
+            <Route path="/common-words" element={<CommonWordsPage />} />
+            <Route path="*" element={<Page404 />} />
+         </Routes>
       </HashRouter>
    );
 };

@@ -10,23 +10,27 @@ const MainPage = () => {
    const { isAuth } = useAuth();
 
    return isAuth ? (
-      <div className="main-page">
-			<Helmet>
+      <>
+         <Helmet>
             <meta name="description" content={`My dictionary main page`} />
             <title>My dictionary</title>
          </Helmet>
          <Header />
-         <ErrorBoundary>
-            <MyWords />
-         </ErrorBoundary>
-         <ErrorBoundary>
-            <CommonWords />
-         </ErrorBoundary>
-         <div className="words__footer">
+         <main>
+            <div className="main-page">
+               <ErrorBoundary>
+                  <MyWords />
+               </ErrorBoundary>
+               <ErrorBoundary>
+                  <CommonWords />
+               </ErrorBoundary>
+            </div>
+         </main>
+         <footer className="words__footer">
             Created by{" "}
             <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023
-         </div>
-      </div>
+         </footer>
+      </>
    ) : (
       <Navigate to="/user/login" />
    );

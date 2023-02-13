@@ -8,7 +8,7 @@ const Header = () => {
    const { isAuth } = useAuth();
 
    return (
-      <div className="header">
+      <header className="header">
          <div className="header__container _container">
             <div className="header__body">
                <div className="header__theme">
@@ -39,7 +39,7 @@ const Header = () => {
                </NavLink>
             </div>
          </div>
-      </div>
+      </header>
    );
 };
 

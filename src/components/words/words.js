@@ -20,6 +20,7 @@ const Words = ({ isAdmin, wordsFrom }) => {
    const [onHideEn, setOnHideEn] = useState(false);
    const [onHideRu, setOnHideRu] = useState(false);
    const [onShowDelete, setOnShowDelete] = useState(false);
+   const [onAscending, setOnAscending] = useState(true);
 
    useEffect(() => {
       setWords((words) => store.getState().words.wordsArray);
@@ -57,6 +58,10 @@ const Words = ({ isAdmin, wordsFrom }) => {
 
    const onShowDeleteFunc = () => {
       setOnShowDelete((onShowDelete) => !onShowDelete);
+   };
+
+   const onAscendingFunc = () => {
+      setOnAscending((onAscending) => !onAscending);
    };
 
    const showItem = (event) => {
@@ -176,80 +181,115 @@ const Words = ({ isAdmin, wordsFrom }) => {
             shuffle={shuffle}
             wordsFrom={wordsFrom}
          />
-         <div className="words _container">
-            <div className="up hidden" id="up"></div>
+         <main>
+            <div className="words-page">
+               <div className="words words__container _container">
+                  <div className="up hidden" id="up"></div>
 
-            {wordsFrom === "private" ? (
-               <>
-                  <div className="words__add">
-                     <span className="words__add-title">Add word</span>
-                     <AddWordsForm handleClick={addWord} />
-                  </div>
-                  <div className="words__delete">
-                     <div
-                        className="words__delete-show"
-                        onClick={onShowDeleteFunc}
-                     >
-                        {!onShowDelete ? (
-                           <svg>
-                              <use href={`${svg}#trashbin`}></use>
-                           </svg>
-                        ) : (
-                           <svg>
-                              <use href={`${svg}#hide`}></use>
-                           </svg>
-                        )}
+                  {wordsFrom === "private" ? (
+                     <WordsControl
+                        AddWordsForm={AddWordsForm}
+                        addWord={addWord}
+                        onShowDeleteFunc={onShowDeleteFunc}
+                        onShowDelete={onShowDelete}
+                        onAscendingFunc={onAscendingFunc}
+                        onAscending={onAscending}
+                        onlyFilter={false}
+                     />
+                  ) : wordsFrom === "common" && isAdmin ? (
+                     <WordsControl
+                        AddWordsForm={AddWordsForm}
+                        addWord={addWord}
+                        onShowDeleteFunc={onShowDeleteFunc}
+                        onShowDelete={onShowDelete}
+                        onAscendingFunc={onAscendingFunc}
+                        onAscending={onAscending}
+                        onlyFilter={false}
+                     />
+                  ) : wordsFrom === "common" && !isAdmin ? (
+                     <WordsControl
+                        AddWordsForm={AddWordsForm}
+                        addWord={addWord}
+                        onShowDeleteFunc={onShowDeleteFunc}
+                        onShowDelete={onShowDelete}
+                        onAscendingFunc={onAscendingFunc}
+                        onAscending={onAscending}
+                        onlyFilter={true}
+                     />
+                  ) : null}
 
-                        {!onShowDelete ? "Show delete" : "Hide delete"}
+                  {words.length === 0 ? (
+                     <div className="words__empy">
+                        There is nothing here yet.
                      </div>
-                  </div>
-               </>
-            ) : wordsFrom === "common" && isAdmin ? (
-               <>
-                  <div className="words__add">
-                     <span className="words__add-title">Add word</span>
-                     <AddWordsForm handleClick={addWord} />
-                  </div>
-                  <div className="words__delete">
-                     <div
-                        className="words__delete-show"
-                        onClick={onShowDeleteFunc}
-                     >
-                        {!onShowDelete ? (
-                           <svg>
-                              <use href={`${svg}#trashbin`}></use>
-                           </svg>
-                        ) : (
-                           <svg>
-                              <use href={`${svg}#hide`}></use>
-                           </svg>
-                        )}
-                        {!onShowDelete ? "Show delete" : "Hide delete"}
-                     </div>
-                  </div>
-               </>
-            ) : null}
+                  ) : null}
 
-            {words.length === 0 ? (
-               <div className="words__empy">There is nothing here yet.</div>
-            ) : null}
-
-            {words.length === 0 ? (
-               <Spinner />
-            ) : !shuffle ? (
-               renderItems(words, "defualt")
-            ) : (
-               renderItems(words, "shuffle")
-            )}
-            <div className="words__footer">
-               Created by{" "}
-               <a href="https://github.com/Nyar1othotep">Nyar1othotep</a> © 2023
+                  {words.length === 0 ? (
+                     <Spinner />
+                  ) : !shuffle ? (
+                     renderItems(words, "defualt")
+                  ) : (
+                     renderItems(words, "shuffle")
+                  )}
+                  <div className="down hidden" id="down"></div>
+               </div>
             </div>
-            <div className="down hidden" id="down"></div>
-         </div>
+         </main>
       </>
    ) : (
       <Navigate to="/user/login" />
+   );
+};
+
+const WordsControl = ({
+   AddWordsForm,
+   addWord,
+   onShowDeleteFunc,
+   onShowDelete,
+   onAscendingFunc,
+   onAscending,
+   onlyFilter,
+}) => {
+   return (
+      <>
+         {!onlyFilter ? (
+            <div className="words__add">
+               <span className="words__add-title">Add word</span>
+               <AddWordsForm handleClick={addWord} />
+            </div>
+         ) : null}
+         <div className="words__delete-filter">
+            {!onlyFilter ? (
+               <div className="words__delete-show" onClick={onShowDeleteFunc}>
+                  {!onShowDelete ? (
+                     <svg>
+                        <use href={`${svg}#trashbin`}></use>
+                     </svg>
+                  ) : (
+                     <svg>
+                        <use href={`${svg}#hide`}></use>
+                     </svg>
+                  )}
+                  {!onShowDelete ? "Show delete" : "Hide delete"}
+               </div>
+            ) : null}
+            <div onClick={onAscendingFunc}>
+               <svg>
+                  <use href={`${svg}#filter`}></use>
+               </svg>
+               {onAscending ? "Ascending" : "Descending"}
+               {onAscending ? (
+                  <svg>
+                     <use href={`${svg}#arrow-down`}></use>
+                  </svg>
+               ) : (
+                  <svg style={{ transform: "rotate(180deg)" }}>
+                     <use href={`${svg}#arrow-down`}></use>
+                  </svg>
+               )}
+            </div>
+         </div>
+      </>
    );
 };
 
